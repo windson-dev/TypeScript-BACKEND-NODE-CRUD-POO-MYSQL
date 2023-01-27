@@ -4,7 +4,7 @@ import UserDTO from '../DTO/UserDTO';
 export default class UserRepository {
   private model = User;
 
-  public findByEmail = async (email: string): Promise<UserDTO> => {
+  public findByEmail = async (email: string) => {
     const user = await this.model.findOne({ where: { email } });
 
     return user as UserDTO;

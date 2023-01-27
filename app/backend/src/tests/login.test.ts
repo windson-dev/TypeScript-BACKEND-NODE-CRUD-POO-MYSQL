@@ -30,10 +30,20 @@ describe('Testes da rota de login.', () => {
   it('Testa se é possivel fazer login.', async () => {
     const result = await chai
        .request(app).post('/login').send({
-        email: 'test.user@test.com',
+        email: 'user@user.com',
         password: 'secret_user'
        })
 
     expect(result.status).to.be.equal(200);
+  });
+
+  it('Testa se não é possivel fazer login com email e senha invalidos.', async () => {
+    const result = await chai
+       .request(app).post('/login').send({
+        email: 'user123@user.com',
+        password: 'secret_user123'
+       })
+
+    expect(result.status).to.be.equal(401);
   });
 });
