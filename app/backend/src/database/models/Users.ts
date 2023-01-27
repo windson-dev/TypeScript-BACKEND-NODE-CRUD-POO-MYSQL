@@ -1,6 +1,5 @@
 import { Model, STRING } from 'sequelize';
 import db from '.';
-// import OtherModel from './OtherModel';
 
 export default class User extends Model {
   public username!: string;
@@ -10,7 +9,6 @@ export default class User extends Model {
 }
 
 User.init({
-  // ... Campos
   username: {
     type: STRING,
     allowNull: false,
@@ -28,7 +26,6 @@ User.init({
     allowNull: false,
   },
 }, {
-  // ... Outras configs
   underscored: true,
   sequelize: db,
   modelName: 'users',
