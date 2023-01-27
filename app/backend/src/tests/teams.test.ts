@@ -11,7 +11,7 @@ chai.use(chaiHttp);
 
 const { expect } = chai;
 
-const test = [
+const mockResponse = [
   {
     id: 1,
     teamName: "Avaí/Kindermann"
@@ -82,14 +82,14 @@ describe('Testes da rota Teams.', () => {
   beforeEach(async () => {
     sinon
       .stub(Teams, "findAll")
-      .resolves(test as unknown as Teams[]);
+      .resolves(mockResponse as unknown as Teams[]);
   });
 
   afterEach(()=>{
     (Teams.findAll as sinon.SinonStub).restore();
   })
 
-  it('Testa se é possivel fazer login.', async () => {
+  it('Testa se é possivel listar todos os times.', async () => {
     const result = await chai.request(app).get('/teams')
 
     expect(result.status).to.be.equal(200);

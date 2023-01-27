@@ -1,0 +1,12 @@
+import { Router } from 'express';
+import MatchesController from '../Controller/Matches';
+import isValidToken from '../middlewares/isValidToken';
+
+const route = Router();
+
+const { getAll, create } = new MatchesController();
+
+route.get('/matches', getAll);
+route.post('/matches', isValidToken, create);
+
+export default route;
