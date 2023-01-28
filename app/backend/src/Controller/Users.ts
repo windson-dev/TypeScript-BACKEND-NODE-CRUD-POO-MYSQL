@@ -19,6 +19,6 @@ export default class UserController {
   public role = async (req: Request, res: Response) => {
     const result = await this.userService.role(req.body.user.user.email);
 
-    return res.status(200).json(result);
+    return res.status(200).send(result);
   };
 }

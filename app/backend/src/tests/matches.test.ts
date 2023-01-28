@@ -21,8 +21,20 @@ describe('Testes da rota Matches.', () => {
         homeTeamGoals: 2,
         awayTeamGoals: 2
     })
+
     expect(httpResponse.status).to.be.equal(201);
 
   });
+
+  it('testa se é possivel atualizar partidas em andamento', async () => {
+    const httpResponse = await chai.request(app).patch('/matches/:id')
+    .send({
+      homeTeamGoals: 3,
+      awayTeamGoals: 1
+    })
+
+    expect(httpResponse.status).to.be.equal(200);
+    
+  })
   sinon.restore()
 });

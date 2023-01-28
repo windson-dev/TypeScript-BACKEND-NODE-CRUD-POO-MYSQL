@@ -32,4 +32,33 @@ export default class MatchesRepository {
 
     return matches;
   };
+
+  public updateMatchesInProgress = async (
+    id: number,
+    { homeTeamGoals,
+      awayTeamGoals }: inProgressDTO,
+  ) => {
+    const matches = await this.model.update({
+      homeTeamGoals,
+      awayTeamGoals,
+    }, {
+      where: { id },
+    });
+
+    return matches;
+  };
+
+  public findById = async (id: number) => {
+    const matches = await this.model.findOne({ where: { id } });
+
+    return matches;
+  };
+
+  public update = async (id: number) => {
+    const matches = await this.model.update(
+      { inProgress: false },
+      { where: { id } },
+    );
+    return matches;
+  };
 }

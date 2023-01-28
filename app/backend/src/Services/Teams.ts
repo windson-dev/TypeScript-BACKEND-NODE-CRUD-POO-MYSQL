@@ -8,13 +8,13 @@ export default class TeamsService {
   }
 
   public findAll = async () => {
-    const teams = this.repository.findAll();
+    const teams = await this.repository.findAll();
 
     return teams;
   };
 
   public findById = async (id: number) => {
-    const teams = this.repository.findById(id);
+    const teams = await this.repository.findById(id);
 
     return teams;
   };

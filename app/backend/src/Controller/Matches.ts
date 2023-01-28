@@ -15,9 +15,33 @@ export default class MatchesController {
   public create = async (req: Request, res: Response) => {
     const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
 
-    const matches = await this.matchesService
+    const { matches, error, errorId } = await this.matchesService
       .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals });
 
+    if (error) {
+      return res.status(422).json({ message: error });
+    }
+
+    if (errorId) {
+      return res.status(404).json({ message: errorId });
+    }
+
     return res.status(201).json(matches);
+  };
+
+  public update = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    await this.matchesService.update(Number(id));
+
+    return res.status(200).json({ message: 'finished' });
+  };
+
+  public updateMatchesInProgress = async (req: Request, res: Response) => {
+    const { id } = req.params;
+
+    await this.matchesService.updateMatchesInProgress(Number(id), req.body);
+
+    return res.status(200).json({ message: 'atualizado com sucesso' });
   };
 }
