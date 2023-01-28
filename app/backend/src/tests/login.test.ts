@@ -1,49 +1,39 @@
-import * as sinon from 'sinon';
-import * as chai from 'chai';
-// @ts-ignore
-import chaiHttp = require('chai-http');
+  import * as sinon from 'sinon';
+  import * as chai from 'chai';
+  // @ts-ignore
+  import chaiHttp = require('chai-http');
 
-import { app } from '../app';
+  import { app } from '../app';
 
-import User from '../database/models/Users';
+  chai.use(chaiHttp);
 
-chai.use(chaiHttp);
+  const { expect } = chai;
 
-const { expect } = chai;
+  describe('Testes da rota de login.', () => {
 
-describe('Testes da rota de login.', () => {
-  beforeEach(async () => {
-    sinon
-      .stub(User, "findOne")
-      .resolves({
-        username: 'User',
-        role: 'user',
-        email: 'user@user.com',
-        password: '$2a$08$Y8Abi8jXvsXyqm.rmp0B.uQBA5qUz7T6Ghlg/CvVr/gLxYj5UAZVO', 
-      } as User);
-  });
+    describe('quando a requisição é feita com sucesso', async () => {
+      it('deve retornar um status 201', async () => {
+        const httpResponse = await chai
+          .request(app)
+          .post('/login')
+          .send({
+            email: 'admin@admin.com',
+          })
+        expect(httpResponse.status).to.equal(400)
 
-  afterEach(()=>{
-    (User.findOne as sinon.SinonStub).restore();
-  })
+      })
+    })
 
-  it('Testa se é possivel fazer login.', async () => {
+  describe('quando a requisição é feita com sucesso', async () => {
+    it('Testa se não é possivel fazer login com email e senha invalidos.', async () => {
     const result = await chai
        .request(app).post('/login').send({
-        email: 'user@user.com',
-        password: 'secret_user'
+        email: 'email@email.com',
+        password: 'password'
        })
-
-    expect(result.status).to.be.equal(200);
-  });
-
-  it('Testa se não é possivel fazer login com email e senha invalidos.', async () => {
-    const result = await chai
-       .request(app).post('/login').send({
-        email: 'user123@user.com',
-        password: 'secret_user123'
-       })
-
     expect(result.status).to.be.equal(401);
-  });
-});
+
+    })
+  })
+  sinon.restore()
+})

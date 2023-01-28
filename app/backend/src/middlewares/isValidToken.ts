@@ -14,8 +14,6 @@ const isValidToken = async (req: Request, res: Response, next: NextFunction) => 
     const user = token.validToken(authorization);
     req.body.user = user;
 
-    console.log(req.body.user);
-
     return next();
   } catch (err) {
     return res.status(401).json({ message: 'Expired or invalid token' });
