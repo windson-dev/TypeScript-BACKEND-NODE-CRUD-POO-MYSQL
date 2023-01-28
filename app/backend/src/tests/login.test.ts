@@ -11,8 +11,8 @@
 
   describe('Testes da rota de login.', () => {
 
-    describe('quando a requisição é feita com sucesso', async () => {
-      it('deve retornar um status 201', async () => {
+    describe('quando a requisição não recebe o campo password', async () => {
+      it('deve retornar um status 400', async () => {
         const httpResponse = await chai
           .request(app)
           .post('/login')
@@ -24,8 +24,8 @@
       })
     })
 
-  describe('quando a requisição é feita com sucesso', async () => {
-    it('Testa se não é possivel fazer login com email e senha invalidos.', async () => {
+  describe('quando a requisição recebe email ou password invalidos', async () => {
+    it('deve retornar status 401.', async () => {
     const result = await chai
        .request(app).post('/login').send({
         email: 'email@email.com',

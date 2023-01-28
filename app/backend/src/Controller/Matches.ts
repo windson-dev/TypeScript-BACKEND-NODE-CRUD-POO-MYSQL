@@ -13,10 +13,7 @@ export default class MatchesController {
   };
 
   public create = async (req: Request, res: Response) => {
-    const { homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals } = req.body;
-
-    const { matches, error, errorId } = await this.matchesService
-      .create({ homeTeamId, awayTeamId, homeTeamGoals, awayTeamGoals });
+    const { matches, error, errorId } = await this.matchesService.create(req.body);
 
     if (error) {
       return res.status(422).json({ message: error });
