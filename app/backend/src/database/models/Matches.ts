@@ -8,6 +8,10 @@ export default class Matches extends Model {
   public awayTeamId!: number;
   public awayTeamGoals!: number;
   public inProgress!: boolean;
+  public homeTeam!: {
+    teamName: string,
+  };
+
   static associate() {
     this.belongsTo(Teams, { as: 'homeTeam', foreignKey: 'homeTeamId' });
     this.belongsTo(Teams, { as: 'awayTeam', foreignKey: 'awayTeamId' });
